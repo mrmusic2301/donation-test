@@ -5,6 +5,11 @@
 npm install
 ```
 
+### Compile the project
+```
+npm run build
+```
+
 ### Server start
 ```
 npm start
