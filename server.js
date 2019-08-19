@@ -1,38 +1,34 @@
-require('colors');
 const Koa           = require("koa");
-const KoaRouter     = require('koa-router');
-// const mongoose      = require('koa-mongoose');
+const KoaCors       = require('@koa/cors');
+const KoaBody       = require('koa-body');
+const KoaValidator  = require('koa-async-validator');
+const mongoose      = require('mongoose');
 const serve         = require('koa-static');
+const routes        = require("./server/routes");
+
+require('colors');
 
 // Initialize application.
-const app = new Koa();
-const dbUri = '...';
-
-const router = new KoaRouter();
 const port = process.env.PORT || 3000;
+const app = new Koa();
+      app.use(KoaCors());
+      app.use(KoaBody({ multipart: true }));
+      app.use(KoaValidator());
 
 
+// Database connection.
+let db = 'donation';
+mongoose.connect('mongodb://localhost/' + db, {useNewUrlParser: true})
+    .then(() => {
+        console.log(`Connected to «${db}» database`.green);
+    })
+    .catch(err => {
+        console.error(`Сonnection error: ${err.message}`.red)
+    });
 
 
-
-// mongoose.Promise = Promise;
-
-
-
-
-
-
-
-
-// Specific routes.
-router.get('/donation', async (ctx) => {
-    ctx.body = {
-        ok: true
-    }
-});
-
-app.use(router.routes())
-    .use(router.allowedMethods())
+app.use(routes.routes())
+    .use(routes.allowedMethods())
     .use(serve(`${__dirname}/dist`))
     .listen(port, () => {
         console.log('Hi, I am the server for https://fundraiseup.com test run'.green);

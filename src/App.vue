@@ -1,23 +1,39 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h4>Тестовый проект <span>Donation Form</span> для <a href="https://fundraiseup.com">fundraiseup.com</a></h4>
+    <DonationForm></DonationForm>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import DonationForm from './components/DonationForm';
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    DonationForm
   }
 }
 </script>
 
-<style>
+<style lang="scss">
 #app {
+
+  h4 {
+    span {
+      background-color: #e0e0e0;
+      padding: 2px 6px;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      color: #1f1f1f;
+    }
+    a {
+      color: #1b1bbb;
+      text-decoration: none;
+    }
+  }
+
+
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
